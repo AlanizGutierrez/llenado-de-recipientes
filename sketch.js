@@ -97,8 +97,8 @@ function dibujarPantalla1() {
   text("PANTALLA 1: Selecciona dos recipientes para comparar", width/2, 28);
   
   fill(80);
-  textSize(13);
-  text("Los recipientes tienen igual volumen y altura total", width/2, 35);
+  textSize(16);
+  text("Los recipientes tienen igual volumen y altura total", width/2, 45);
   
   let nombres = [
     "1. Cilindro", "2. Cono Invertido", "3. Esfera", "4. Prisma Rect.",
@@ -114,7 +114,7 @@ function dibujarPantalla1() {
   }
   
   fill(60);
-  textSize(13);
+  textSize(16);
   text("Recipiente 1 (Azul) vs Recipiente 2 (Rojo)", width/2, 462);
 
   fill(40, 120, 220);
@@ -124,7 +124,7 @@ function dibujarPantalla1() {
   text("Siguiente ->", width/2, 506);
 
   fill(90);
-  textSize(12);
+  textSize(14);
   text("Creado por: Catherine Gallardo & Alaniz Gutiérrez con ayuda de tutor IA", width/2, 552);
 }
 
@@ -248,7 +248,7 @@ function dibujarPantalla3_Dibujo() {
   text("PANTALLA 3: Dibuja tu hipótesis de la gráfica h(t) vs t", width/2, 35);
   
   fill(80);
-  textSize(13);
+  textSize(16);
   text("Usa los lápices para trazar hipótesis o la goma de borrar para corregir tramos.", width/2, 58);
   
   dibujarBotonControl(30, 80, 180, 35, "Lápiz R1 (Azul)", curvaActiva === 1 ? color(40, 120, 220) : color(220));
