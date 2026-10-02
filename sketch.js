@@ -45,7 +45,18 @@ let arrastrandoSlider = false;
 let sliderX = 650, sliderY = 40, sliderW = 180;
 
 function setup() {
-  createCanvas(900, 580);
+  let contenedor = document.getElementById('simulador-container');
+  let ancho = contenedor.clientWidth;
+  let alto = contenedor.clientHeight;
+
+  let canvas = createCanvas(ancho, alto);
+  canvas.parent('simulador-container');
+  pixelDensity(displayDensity());
+}
+
+function windowResized() {
+  let contenedor = document.getElementById('simulador-container');
+  resizeCanvas(contenedor.clientWidth, contenedor.clientHeight);
 }
 
 function draw() {
