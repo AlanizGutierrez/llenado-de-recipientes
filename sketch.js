@@ -33,7 +33,7 @@ let Q = 250;              // Caudal constante (px^3 por fotograma)
 
 let t = 0;                // Tiempo transcurrido (fotogramas)
 let V_actual = 0;         // Volumen acumulado en instante t
-let simulando = false;  // Estado de la animación
+let simulando = false;    // Estado de la animación
 
 // Historial para graficar h(t) vs t
 let h1_hist = [];
@@ -42,31 +42,25 @@ let t_hist = [];
 
 // Control de deslizador (Slider)
 let arrastrandoSlider = false;
-let sliderX = 650, sliderY = 40, sliderW = 180;
+let sliderX = 460, sliderY = 65, sliderW = 180;
+
 function setup() {
   let contenedor = document.getElementById('simulador-container');
-  let ancho = contenedor ? contenedor.clientWidth : 800;
-  let alto = contenedor ? contenedor.clientHeight : 600;
+  let ancho = (contenedor && contenedor.clientWidth > 0) ? contenedor.clientWidth : 800;
+  let alto = (contenedor && contenedor.clientHeight > 0) ? contenedor.clientHeight : 600;
 
   let canvas = createCanvas(ancho, alto);
   if (contenedor) {
     canvas.parent('simulador-container');
   }
+  
   pixelDensity(displayDensity());
   textFont('Arial');
 }
 
-
-function draw() {
-  background(255);
-  fill(0);
-  textSize(16);
-  textAlign(LEFT, CENTER);
-  text("Tiempo t: 10 s", 50, 50);
-}
 function windowResized() {
   let contenedor = document.getElementById('simulador-container');
-  if (contenedor) {
+  if (contenedor && contenedor.clientWidth > 0 && contenedor.clientHeight > 0) {
     resizeCanvas(contenedor.clientWidth, contenedor.clientHeight);
   }
 }
@@ -95,25 +89,31 @@ function dibujarPantalla1() {
   text("PANTALLA 1: Selecciona dos recipientes para comparar", width/2, 28);
   
   fill(80);
-  textSize(16);
-  text("Los recipientes tienen igual volumen y altura total", width/2, 45);
+  textSize(15);
+  text("Los recipientes tienen igual volumen y altura total", width/2, 48);
   
   let nombres = [
     "1. Cilindro", "2. Cono Invertido", "3. Esfera", "4. Prisma Rect.",
     "5. Cono Normal", "6. Doble Cono", "7. Tetraedro"
   ];
   
+  let cardW = 175;
+  let cardH = 180;
+  let gapX = 15;
+  let gapY = 12;
+  let startX = (width - (4 * cardW + 3 * gapX)) / 2;
+  
   for (let i = 0; i < 7; i++) {
     let col = i % 4;
     let row = floor(i / 4);
-    let x = 45 + col * 205;
-    let y = 62 + row * 192;
-    dibujarTarjetaRecipiente(x, y, 190, 180, i, nombres[i]);
+    let x = startX + col * (cardW + gapX);
+    let y = 65 + row * (cardH + gapY);
+    dibujarTarjetaRecipiente(x, y, cardW, cardH, i, nombres[i]);
   }
   
   fill(60);
-  textSize(16);
-  text("Recipiente 1 (Azul) vs Recipiente 2 (Rojo)", width/2, 462);
+  textSize(15);
+  text("Recipiente 1 (Azul) vs Recipiente 2 (Rojo)", width/2, 460);
 
   fill(40, 120, 220);
   rect(width/2 - 80, 480, 160, 42, 10);
@@ -122,7 +122,7 @@ function dibujarPantalla1() {
   text("Siguiente ->", width/2, 506);
 
   fill(90);
-  textSize(14);
+  textSize(13);
   text("Creado por: Catherine Gallardo & Alaniz Gutiérrez con ayuda de tutor IA", width/2, 552);
 }
 
@@ -137,23 +137,23 @@ function dibujarTarjetaRecipiente(x, y, w, h, tipo, titulo) {
   
   fill(50);
   noStroke();
-  textSize(14);
+  textSize(13);
   textAlign(CENTER);
-  text(titulo, x + w/2, y + 25);
+  text(titulo, x + w/2, y + 22);
   
-  dibujarMiniesquema(x + w/2, y + 68, tipo);
+  dibujarMiniesquema(x + w/2, y + 65, tipo);
   
   fill(esR1 ? color(40, 120, 220) : color(230));
-  rect(x + 10, y + 120, w/2 - 15, 35, 5);
+  rect(x + 8, y + 125, w/2 - 12, 35, 5);
   fill(esR1 ? 255 : 80);
   textSize(11);
-  text(esR1 ? "R1 [X]" : "Elegir R1", x + 10 + (w/2 - 15)/2, y + 142);
+  text(esR1 ? "R1 [X]" : "Elegir R1", x + 8 + (w/2 - 12)/2, y + 147);
   
   fill(esR2 ? color(220, 60, 60) : color(230));
-  rect(x + w/2 + 5, y + 120, w/2 - 15, 35, 5);
+  rect(x + w/2 + 4, y + 125, w/2 - 12, 35, 5);
   fill(esR2 ? 255 : 80);
   textSize(11);
-  text(esR2 ? "R2 [X]" : "Elegir R2", x + w/2 + 5 + (w/2 - 15)/2, y + 142);
+  text(esR2 ? "R2 [X]" : "Elegir R2", x + w/2 + 4 + (w/2 - 12)/2, y + 147);
 }
 
 function dibujarMiniesquema(x, y, tipo) {
@@ -207,7 +207,7 @@ function dibujarMiniesquema(x, y, tipo) {
 // ==========================================
 function dibujarPantalla2() {
   fill(30);
-  textSize(22);
+  textSize(20);
   textAlign(CENTER);
   text("PANTALLA 2: ¿Cuál recipiente crees que se llenará primero?", width/2, 50);
   
@@ -246,7 +246,7 @@ function dibujarPantalla3_Dibujo() {
   text("PANTALLA 3: Dibuja tu hipótesis de la gráfica h(t) vs t", width/2, 35);
   
   fill(80);
-  textSize(16);
+  textSize(15);
   text("Usa los lápices para trazar hipótesis o la goma de borrar para corregir tramos.", width/2, 58);
   
   dibujarBotonControl(30, 80, 180, 35, "Lápiz R1 (Azul)", curvaActiva === 1 ? color(40, 120, 220) : color(220));
@@ -269,7 +269,7 @@ function dibujarPantalla3_Dibujo() {
   textAlign(CENTER);
   text("Iniciar Simulación ->", 120, 448);
 
-  let gx = 250, gy = 90, gw = 610, gh = 420;
+  let gx = 250, gy = 90, gw = width - 280, gh = 420;
   fill(255); stroke(180); strokeWeight(1);
   rect(gx, gy, gw, gh, 8);
   
@@ -358,12 +358,12 @@ function dibujarPantalla4_Simulacion() {
   let textoSlider = "Altura H = " + floor(H) + " px" + (sliderBloqueado ? " (Bloqueado)" : "");
   text(textoSlider, sliderX + sliderW/2, sliderY - 12);
 
-  dibujarBotonControl(30, 50, 90, 30, simulando ? "Pausar" : "Iniciar", color(220));
-  dibujarBotonControl(130, 50, 90, 30, "Reiniciar", color(220));
-  dibujarBotonControl(230, 50, 90, 30, "Volver", color(220));
+  dibujarBotonControl(30, 50, 80, 30, simulando ? "Pausar" : "Iniciar", color(220));
+  dibujarBotonControl(120, 50, 80, 30, "Reiniciar", color(220));
+  dibujarBotonControl(210, 50, 80, 30, "Volver", color(220));
   
   let colBotonValid = mostrarValidacion ? color(40, 160, 80) : color(220);
-  dibujarBotonControl(330, 50, 130, 30, mostrarValidacion ? "Ocultar Valid." : "Validar Hipótesis", colBotonValid);
+  dibujarBotonControl(300, 50, 130, 30, mostrarValidacion ? "Ocultar Valid." : "Validar Hipótesis", colBotonValid);
 
   let baseEjeY = 340;
   let h1_curr = calcularAltura(recipiente1, V_actual);
@@ -385,15 +385,15 @@ function dibujarPantalla4_Simulacion() {
   fill(220, 60, 60);
   text("R2: " + obtenerNombreRecipiente(recipiente2) + "\nh = " + h2_curr.toFixed(1) + " px", 320, baseEjeY + 35);
   
-  dibujarGrafico(480, 110, 380, 280);
+  dibujarGrafico(440, 100, 330, 280);
   
   if (mostrarValidacion) {
-    dibujarPanelRetroalimentacion(480, 405, 380, 145);
+    dibujarPanelRetroalimentacion(440, 395, 330, 160);
   } else {
     fill(255); stroke(200); strokeWeight(1);
-    rect(480, 405, 380, 145, 8);
+    rect(440, 395, 330, 160, 8);
     fill(100); textSize(13); textAlign(CENTER, CENTER);
-    text("Haz clic en el botón 'Validar Hipótesis' (arriba)\npara evaluar la precisión de tus trazos.", 480 + 380/2.0, 405 + 145/2.0);
+    text("Haz clic en el botón 'Validar Hipótesis' (arriba)\npara evaluar la precisión de tus trazos.", 440 + 330/2.0, 395 + 160/2.0);
   }
 }
 
@@ -855,8 +855,8 @@ function dibujarTetraedro3D(x, yBase, hTotal, hAgua) {
 function dibujarBotonControl(x, y, w, h, etiqueta, c) {
   fill(c); stroke(180); strokeWeight(1);
   rect(x, y, w, h, 5);
-  fill(40); textSize(12); textAlign(CENTER);
-  text(etiqueta, x + w/2, y + h/2 + 4);
+  fill(40); noStroke(); textSize(12); textAlign(CENTER, CENTER);
+  text(etiqueta, x + w/2, y + h/2);
 }
 
 function reiniciarSimulacion() {
@@ -882,18 +882,23 @@ function reiniciarTodo() {
 // ==========================================
 function mousePressed() {
   if (pantalla === 1) {
+    let cardW = 175;
+    let cardH = 180;
+    let gapX = 15;
+    let gapY = 12;
+    let startX = (width - (4 * cardW + 3 * gapX)) / 2;
+
     for (let i = 0; i < 7; i++) {
       let col = i % 4;
       let row = floor(i / 4);
-      let cardX = 45 + col * 205;
-      let cardY = 62 + row * 192;
-      let cardW = 190;
+      let cardX = startX + col * (cardW + gapX);
+      let cardY = 65 + row * (cardH + gapY);
       
-      if (mouseX > cardX + 10 && mouseX < cardX + cardW/2 - 5 && mouseY > cardY + 120 && mouseY < cardY + 155) {
+      if (mouseX > cardX + 8 && mouseX < cardX + cardW/2 - 4 && mouseY > cardY + 125 && mouseY < cardY + 160) {
         recipiente1 = i;
         boceto1 = [];
       }
-      if (mouseX > cardX + cardW/2 + 5 && mouseX < cardX + cardW - 10 && mouseY > cardY + 120 && mouseY < cardY + 155) {
+      if (mouseX > cardX + cardW/2 + 4 && mouseX < cardX + cardW - 8 && mouseY > cardY + 125 && mouseY < cardY + 160) {
         recipiente2 = i;
         boceto2 = [];
       }
@@ -919,13 +924,19 @@ function mousePressed() {
     if (mouseX > 30 && mouseX < 210 && mouseY > 260 && mouseY < 290) boceto2 = [];
     if (mouseX > 30 && mouseX < 210 && mouseY > 300 && mouseY < 330) { boceto1 = []; boceto2 = []; }
     
-    let gx = 250, gy = 90, gw = 610, gh = 420;
+    let gx = 250, gy = 90, gw = width - 280, gh = 420;
     let x0 = gx + 55, x1 = gx + gw - 25;
     let y0 = gy + gh - 45, y1 = gy + 25;
-    if (curvaActiva === 3 && mouseX >= x0 && mouseX <= x1 && mouseY >= y1 && mouseY <= y0) {
+
+    if (mouseX >= x0 && mouseX <= x1 && mouseY >= y1 && mouseY <= y0) {
       let u = map(mouseX, x0, x1, 0, 1);
       let v = map(mouseY, y0, y1, 0, 1);
-      aplicarBorrador(u, v);
+      if (curvaActiva === 3) {
+        aplicarBorrador(u, v);
+      } else {
+        let boceto = (curvaActiva === 1) ? boceto1 : boceto2;
+        boceto.push(createVector(u, v));
+      }
     }
     
     if (mouseX > 30 && mouseX < 210 && mouseY > 420 && mouseY < 465) {
@@ -934,15 +945,15 @@ function mousePressed() {
     }
     
   } else if (pantalla === 4) {
-    if (mouseX > 30 && mouseX < 120 && mouseY > 50 && mouseY < 80) simulando = !simulando;
-    if (mouseX > 130 && mouseX < 220 && mouseY > 50 && mouseY < 80) reiniciarSimulacion();
+    if (mouseX > 30 && mouseX < 110 && mouseY > 50 && mouseY < 80) simulando = !simulando;
+    if (mouseX > 120 && mouseX < 200 && mouseY > 50 && mouseY < 80) reiniciarSimulacion();
     
-    if (mouseX > 230 && mouseX < 320 && mouseY > 50 && mouseY < 80) {
+    if (mouseX > 210 && mouseX < 290 && mouseY > 50 && mouseY < 80) {
       reiniciarTodo();
       pantalla = 1;
     }
     
-    if (mouseX > 330 && mouseX < 460 && mouseY > 50 && mouseY < 80) {
+    if (mouseX > 300 && mouseX < 430 && mouseY > 50 && mouseY < 80) {
       mostrarValidacion = !mostrarValidacion;
     }
     
@@ -959,7 +970,7 @@ function mouseReleased() {
 
 function mouseDragged() {
   if (pantalla === 3) {
-    let gx = 250, gy = 90, gw = 610, gh = 420;
+    let gx = 250, gy = 90, gw = width - 280, gh = 420;
     let x0 = gx + 55, x1 = gx + gw - 25;
     let y0 = gy + gh - 45, y1 = gy + 25;
     
