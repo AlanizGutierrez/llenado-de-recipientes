@@ -88,7 +88,7 @@ function dibujarPantalla1() {
   textAlign(CENTER);
   text("PANTALLA 1: Selecciona dos recipientes para comparar", width/2, 28);
   
-  fill(80);
+  fill(30);
   textSize(15);
   text("Los recipientes tienen igual volumen y altura total", width/2, 48);
   
@@ -111,7 +111,7 @@ function dibujarPantalla1() {
     dibujarTarjetaRecipiente(x, y, cardW, cardH, i, nombres[i]);
   }
   
-  fill(60);
+  fill(30);
   textSize(15);
   text("Recipiente 1 (Azul) vs Recipiente 2 (Rojo)", width/2, 460);
 
@@ -245,7 +245,7 @@ function dibujarPantalla3_Dibujo() {
   textAlign(CENTER);
   text("PANTALLA 3: Dibuja tu hipótesis de la gráfica h(t) vs t", width/2, 35);
   
-  fill(80);
+  fill(30);
   textSize(15);
   text("Usa los lápices para trazar hipótesis o la goma de borrar para corregir tramos.", width/2, 58);
   
