@@ -98,7 +98,7 @@ function dibujarPantalla1() {
   
   fill(80);
   textSize(13);
-  text("Los recipientes tienen igual volumen y altura total", width/2, 48);
+  text("Los recipientes tienen igual volumen y altura total", width/2, 35);
   
   let nombres = [
     "1. Cilindro", "2. Cono Invertido", "3. Esfera", "4. Prisma Rect.",
