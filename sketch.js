@@ -45,6 +45,10 @@ let arrastrandoSlider = false;
 let sliderX = 650, sliderY = 40, sliderW = 180;
 
 function setup() {
+  let canvas = createCanvas(800, 500); // Dimensiones del lienzo
+  canvas.parent('simulador-container'); // ID del contenedor HTML si aplica
+  
+  pixelDensity(displayDensity());
   let contenedor = document.getElementById('simulador-container');
   let ancho = contenedor.clientWidth;
   let alto = contenedor.clientHeight;
