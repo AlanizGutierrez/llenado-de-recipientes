@@ -56,6 +56,16 @@ function setup() {
   let canvas = createCanvas(ancho, alto);
   canvas.parent('simulador-container');
   pixelDensity(displayDensity());
+createCanvas(800, 600);
+  textFont('Arial'); // O 'sans-serif', 'Verdana', 'Georgia', 'Courier New'
+}
+
+function draw() {
+  background(255);
+  fill(0);
+  textSize(16);
+  textAlign(LEFT, CENTER);
+  text("Tiempo t: 10 s", 50, 50);
 }
 
 function windowResized() {
