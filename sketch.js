@@ -83,6 +83,7 @@ function draw() {
 // PANTALLA 1: SELECCION DE RECIPIENTES
 // ==========================================
 function dibujarPantalla1() {
+  noStroke();
   fill(30);
   textSize(19);
   textAlign(CENTER);
@@ -206,6 +207,7 @@ function dibujarMiniesquema(x, y, tipo) {
 // PANTALLA 2: PREDICCION CUALITATIVA
 // ==========================================
 function dibujarPantalla2() {
+  noStroke();
   fill(30);
   textSize(20);
   textAlign(CENTER);
@@ -220,7 +222,8 @@ function dibujarPantalla2() {
     strokeWeight(prediccion === i ? 3 : 1);
     fill(255);
     rect(width/2 - 200, 130 + i * 80, 400, 55, 8);
-    
+
+    noStroke();
     fill(40);
     noStroke();
     textSize(16);
@@ -228,6 +231,7 @@ function dibujarPantalla2() {
   }
   
   if (prediccion !== -1) {
+    noStroke();
     fill(40, 160, 80);
     rect(width/2 - 100, 420, 200, 45, 10);
     fill(255);
@@ -240,6 +244,7 @@ function dibujarPantalla2() {
 // PANTALLA 3: DIBUJO DE HIPOTESIS DE LA GRAFICA h(t)
 // ==========================================
 function dibujarPantalla3_Dibujo() {
+  noStroke();
   fill(30);
   textSize(20);
   textAlign(CENTER);
@@ -298,7 +303,8 @@ function dibujarPantalla3_Dibujo() {
   stroke(80); strokeWeight(2);
   line(x0, y0, x1, y0);
   line(x0, y0, x0, y1);
-  
+
+  noStroke();
   fill(50); textSize(12); textAlign(CENTER);
   text("Tiempo (t)", (x0 + x1)/2, y0 + 26);
   textAlign(RIGHT);
@@ -376,12 +382,14 @@ function dibujarPantalla4_Simulacion() {
   dibujarLlaveYChorro(320, baseEjeY, H, h2_curr, fluyendo);
   
   dibujarRecipiente(120, baseEjeY, H, h1_curr, recipiente1);
+  noStroke();
   fill(40, 120, 220);
   textSize(13);
   textAlign(CENTER);
   text("R1: " + obtenerNombreRecipiente(recipiente1) + "\nh = " + h1_curr.toFixed(1) + " px", 120, baseEjeY + 35);
   
   dibujarRecipiente(320, baseEjeY, H, h2_curr, recipiente2);
+  noStroke();
   fill(220, 60, 60);
   text("R2: " + obtenerNombreRecipiente(recipiente2) + "\nh = " + h2_curr.toFixed(1) + " px", 320, baseEjeY + 35);
   
