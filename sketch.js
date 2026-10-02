@@ -43,22 +43,19 @@ let t_hist = [];
 // Control de deslizador (Slider)
 let arrastrandoSlider = false;
 let sliderX = 650, sliderY = 40, sliderW = 180;
-
 function setup() {
-  let canvas = createCanvas(800, 500); // Dimensiones del lienzo
-  canvas.parent('simulador-container'); // ID del contenedor HTML si aplica
-  
-  pixelDensity(displayDensity());
   let contenedor = document.getElementById('simulador-container');
-  let ancho = contenedor.clientWidth;
-  let alto = contenedor.clientHeight;
+  let ancho = contenedor ? contenedor.clientWidth : 800;
+  let alto = contenedor ? contenedor.clientHeight : 600;
 
   let canvas = createCanvas(ancho, alto);
-  canvas.parent('simulador-container');
+  if (contenedor) {
+    canvas.parent('simulador-container');
+  }
   pixelDensity(displayDensity());
-createCanvas(800, 600);
-  textFont('Arial'); // O 'sans-serif', 'Verdana', 'Georgia', 'Courier New'
+  textFont('Arial');
 }
+
 
 function draw() {
   background(255);
@@ -67,10 +64,11 @@ function draw() {
   textAlign(LEFT, CENTER);
   text("Tiempo t: 10 s", 50, 50);
 }
-
 function windowResized() {
   let contenedor = document.getElementById('simulador-container');
-  resizeCanvas(contenedor.clientWidth, contenedor.clientHeight);
+  if (contenedor) {
+    resizeCanvas(contenedor.clientWidth, contenedor.clientHeight);
+  }
 }
 
 function draw() {
